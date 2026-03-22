@@ -20,6 +20,20 @@ def check_ollama():
     except Exception:
         raise RuntimeError("❌ Ollama is not running. Start it with: ollama serve")
 
+def strip_code_fences(result: str) -> str:
+    lines = result.splitlines()
+    start = 0
+    for i, line in enumerate(lines):
+        if line.startswith("```"):
+            start = i + 1
+            break
+    end = len(lines)
+    for i in range(len(lines) - 1, -1, -1):
+        if lines[i].strip() == "```":
+            end = i
+            break
+    return "\n".join(lines[start:end])
+
 def add_comments_to_file(file_path: Path) -> str:
     code = file_path.read_text(encoding="utf-8")
     lang = detect_language(file_path)
@@ -38,19 +52,11 @@ Rules:
 
     response = ollama.chat(model=MODEL, messages=[{"role": "user", "content": prompt}])
 
-    # Validate response
     result = response.get("message", {}).get("content", None)
     if not result:
         raise ValueError(f"Model returned empty response for {file_path.name}")
 
-    # Strip markdown code fences if the model wrapped the output
-    lines = result.splitlines()
-    if lines and lines[0].startswith("```"):
-        lines = lines[1:]
-    if lines and lines[-1].strip() == "```":
-        lines = lines[:-1]
-
-    return "\n".join(lines)
+    return strip_code_fences(result)
 
 def summarize_file(file_path: Path, commented_code: str) -> str:
     lang = detect_language(file_path)
