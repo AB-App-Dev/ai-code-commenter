@@ -61,24 +61,37 @@ pip install -e .
 
 ## 🚀 Usage
 
+The easiest way to run the tool is from **inside your project folder**:
+
 ```bash
-# Comment all files in a folder + generate DOCS.md
-comment-code ./src
+cd my-react-app
+```
 
-# Single file
-comment-code ./src/App.tsx
+**Step 1 — Dry run first (no files are modified)**
+```bash
+comment-code . --dry-run
+```
 
-# Backup originals before overwriting
-comment-code ./src --backup
+**Step 2 — Run for real with backup and generate docs**
+```bash
+comment-code . --backup --output DOCS.md
+```
 
-# Custom docs output file
-comment-code ./src --output MY_DOCS.md
+That's it! This will:
+- 💾 Back up all original files before overwriting
+- 📝 Add inline comments to all `.ts`, `.tsx`, `.js`, `.jsx` files
+- 📄 Generate a `DOCS.md` in your project folder
 
-# Use a different Ollama model
-comment-code ./src --model codellama:7b
+---
 
-# Preview without writing anything
-comment-code ./src --dry-run
+### Running from outside the project folder
+
+```bash
+# Dry run
+comment-code ./my-react-app --dry-run
+
+# Full run with backup and docs
+comment-code ./my-react-app --backup --output ./my-react-app/DOCS.md
 ```
 
 ---
