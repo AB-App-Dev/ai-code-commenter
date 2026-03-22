@@ -61,7 +61,23 @@ pip install -e .
 
 ## 🚀 Usage
 
-The easiest way to run the tool is from **inside your project folder**:
+### Single File
+
+To add comments to a single file:
+
+```bash
+# Dry run first (no files modified)
+comment-code src/App.tsx --dry-run
+
+# Run for real with backup
+comment-code src/App.tsx --backup
+```
+
+---
+
+### All Files in a Project
+
+The easiest way is to run from **inside your project folder**:
 
 ```bash
 cd my-react-app
@@ -87,10 +103,12 @@ That's it! This will:
 ### Running from outside the project folder
 
 ```bash
-# Dry run
-comment-code ./my-react-app --dry-run
+# Single file
+comment-code ./my-react-app/src/App.tsx --dry-run
+comment-code ./my-react-app/src/App.tsx --backup
 
-# Full run with backup and docs
+# All files
+comment-code ./my-react-app --dry-run
 comment-code ./my-react-app --backup --output ./my-react-app/DOCS.md
 ```
 
