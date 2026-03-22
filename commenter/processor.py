@@ -24,16 +24,33 @@ def add_comments_to_file(file_path: Path) -> str:
     code = file_path.read_text(encoding="utf-8")
     lang = detect_language(file_path)
 
-    prompt = f"""You are a senior developer. Add clear, concise inline comments to the following {lang} code.
-Explain what each section, function, and important line does.
-Return ONLY the commented code, no explanations outside the code.
+    prompt = f"""You are a senior developer. Add clear, concise comments to the following {lang} code.
+Rules:
+- Place comments on their OWN LINE above the code they describe, never at the end of a line
+- Use // for single line comments
+- Use /* */ for multi-line comments
+- Do not modify the code itself, only add comments
+- Return ONLY the commented code, no explanations outside the code
 
 ```{file_path.suffix.strip(".")}
 {code}
 ```"""
 
     response = ollama.chat(model=MODEL, messages=[{"role": "user", "content": prompt}])
-    return response["message"]["content"]
+
+    # Validate response
+    result = response.get("message", {}).get("content", None)
+    if not result:
+        raise ValueError(f"Model returned empty response for {file_path.name}")
+
+    # Strip markdown code fences if the model wrapped the output
+    lines = result.splitlines()
+    if lines and lines[0].startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].strip() == "```":
+        lines = lines[:-1]
+
+    return "\n".join(lines)
 
 def summarize_file(file_path: Path, commented_code: str) -> str:
     lang = detect_language(file_path)
@@ -48,4 +65,9 @@ Code:
 {commented_code}"""
 
     response = ollama.chat(model=MODEL, messages=[{"role": "user", "content": prompt}])
-    return response["message"]["content"]
+
+    result = response.get("message", {}).get("content", None)
+    if not result:
+        raise ValueError(f"Model returned empty summary for {file_path.name}")
+
+    return result
