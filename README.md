@@ -40,22 +40,28 @@ No API keys. No cloud. Runs 100% locally and for free.
 
 ## 🚀 Installation
 
-**1. Install and start Ollama**
+### 1) Install and start Ollama
 
 Download from [ollama.com](https://ollama.com), then pull the model:
 
 ```bash
 ollama pull deepseek-coder:6.7b
+```
 
-**2. Install the CLI tool**
+### 2) Install the CLI tool
 
+```bash
 cd ai-code-commenter
 python3 -m venv venv
 source venv/bin/activate
 pip install -e .
+```
+
+---
 
 ## 🚀 Usage
 
+```bash
 # Comment all files in a folder + generate DOCS.md
 comment-code ./src
 
@@ -73,19 +79,26 @@ comment-code ./src --model codellama:7b
 
 # Preview without writing anything
 comment-code ./src --dry-run
+```
+
+---
 
 ## 🚀 All options
 
-Flag	    Short   Default                 Description
---output	-o	                            DOCS.md	Output documentation filename
---backup	-b	    false	                Save original files before overwriting
---dry-run		    false	                Run without writing any files
---model	    -m	    deepseek-coder:6.7b	    Ollama model to use
+| Flag | Short | Default | Description |
+|---|---:|---|---|
+| `--output` | `-o` | `DOCS.md` | Output documentation filename |
+| `--backup` | `-b` | `false` | Save original files before overwriting |
+| `--dry-run` |  | `false` | Run without writing any files |
+| `--model` | `-m` | `deepseek-coder:6.7b` | Ollama model to use |
+
+---
 
 ## 🚀 Example Output
 
 **Before (Button.tsx)**
 
+```tsx
 export const Button = ({ label, onClick, disabled }) => {
   return (
     <button onClick={onClick} disabled={disabled}>
@@ -93,9 +106,11 @@ export const Button = ({ label, onClick, disabled }) => {
     </button>
   );
 };
+```
 
 **After (Button.tsx)**
 
+```tsx
 // Button component — renders a clickable button with optional disabled state
 export const Button = ({ label, onClick, disabled }) => {
   return (
@@ -106,16 +121,23 @@ export const Button = ({ label, onClick, disabled }) => {
     </button>
   );
 };
+```
 
-**Generated ```DOCS.md entry:**
+**Generated `DOCS.md` entry:**
+
+```md
 ## `Button.tsx`
 
 A simple reusable Button component that accepts a label string, an onClick
 handler, and an optional disabled boolean. Renders a native HTML button
 element styled and controlled via props.
+```
+
+---
 
 ## 🚀 Project Structure
 
+```text
 ai-code-commenter/
 ├── commenter/
 │   ├── __init__.py
@@ -124,15 +146,21 @@ ai-code-commenter/
 │   └── docs_writer.py  # Markdown documentation generator
 ├── pyproject.toml
 └── README.md
+```
+
+---
 
 ## 🚀 Supported Models
 
 Any model available in Ollama works. Recommended for code:
 
-Model	            Size	Command
-deepseek-coder:6.7b	~4GB	ollama pull deepseek-coder:6.7b
-codellama:7b	    ~4GB	ollama pull codellama:7b
-qwen2.5-coder:7b	~4GB	ollama pull qwen2.5-coder:7b
+| Model | Size | Command |
+|---|---:|---|
+| `deepseek-coder:6.7b` | ~4GB | `ollama pull deepseek-coder:6.7b` |
+| `codellama:7b` | ~4GB | `ollama pull codellama:7b` |
+| `qwen2.5-coder:7b` | ~4GB | `ollama pull qwen2.5-coder:7b` |
+
+---
 
 ## 🚀 Why I Built This
 
@@ -142,9 +170,11 @@ producing a documentation file — making codebases easier to onboard into and m
 
 Built as a portfolio project to demonstrate:
 
-Python CLI development
-Local LLM integration
-Developer tooling and UX thinking
+- Python CLI development
+- Local LLM integration
+- Developer tooling and UX thinking
+
+---
 
 ## 🚀 License
 
