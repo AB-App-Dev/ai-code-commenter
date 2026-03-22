@@ -49,7 +49,6 @@ ollama pull deepseek-coder:6.7b
 
 **2. Install the CLI tool**
 
-```bash
 cd ai-code-commenter
 python3 -m venv venv
 source venv/bin/activate
@@ -58,27 +57,21 @@ pip install -e .
 ## 🚀 Usage
 
 # Comment all files in a folder + generate DOCS.md
-```bash
 comment-code ./src
 
 # Single file
-```bash
 comment-code ./src/App.tsx
 
 # Backup originals before overwriting
-```bash
 comment-code ./src --backup
 
 # Custom docs output file
-```bash
 comment-code ./src --output MY_DOCS.md
 
 # Use a different Ollama model
-```bash
 comment-code ./src --model codellama:7b
 
 # Preview without writing anything
-```bash
 comment-code ./src --dry-run
 
 ## 🚀 All options
@@ -93,7 +86,6 @@ Flag	    Short   Default                 Description
 
 **Before (Button.tsx)**
 
-```bash
 export const Button = ({ label, onClick, disabled }) => {
   return (
     <button onClick={onClick} disabled={disabled}>
@@ -104,7 +96,6 @@ export const Button = ({ label, onClick, disabled }) => {
 
 **After (Button.tsx)**
 
-```bash
 // Button component — renders a clickable button with optional disabled state
 export const Button = ({ label, onClick, disabled }) => {
   return (
