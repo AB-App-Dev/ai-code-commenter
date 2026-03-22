@@ -38,9 +38,9 @@ No API keys. No cloud. Runs 100% locally and for free.
 
 ---
 
-## 🚀 Installation
+## ⚙️ Installation
 
-### 1) Install and start Ollama
+**1. Install and start Ollama**
 
 Download from [ollama.com](https://ollama.com), then pull the model:
 
@@ -48,7 +48,7 @@ Download from [ollama.com](https://ollama.com), then pull the model:
 ollama pull deepseek-coder:6.7b
 ```
 
-### 2) Install the CLI tool
+**2. Install the CLI tool**
 
 ```bash
 cd ai-code-commenter
@@ -56,6 +56,38 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -e .
 ```
+
+**3. Add the alias so `comment-code` works from anywhere**
+
+```bash
+echo 'alias comment-code="/path/to/ai-code-commenter/venv/bin/comment-code"' >> ~/.zshrc
+source ~/.zshrc
+```
+
+> Replace `/path/to/` with your actual project path. For example:
+> `/Users/user/Documents/htdocs/AI/ai-code-commenter/venv/bin/comment-code`
+
+---
+
+### ⚠️ Command not found after opening a new terminal?
+
+If you get `zsh: command not found: comment-code` in a new terminal session, the alias needs to be reloaded. Fix it with:
+
+```bash
+source ~/.zshrc
+```
+
+To verify the alias is saved correctly:
+```bash
+cat ~/.zshrc
+```
+
+You should see a line like:
+```bash
+alias comment-code="/path/to/ai-code-commenter/venv/bin/comment-code"
+```
+
+If it's missing, re-run the `echo` command from Step 3 above. Once saved in `.zshrc` it will persist across all terminal sessions automatically.
 
 ---
 
