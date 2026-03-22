@@ -1,0 +1,160 @@
+# 🤖 ai-code-commenter
+
+A CLI tool that uses a **local AI model** (via [Ollama](https://ollama.com)) to automatically add inline comments to your code and generate a `DOCS.md` documentation file.
+
+No API keys. No cloud. Runs 100% locally and for free.
+
+---
+
+## ✨ Features
+
+- 📝 Adds inline comments to `.ts`, `.tsx`, `.js`, `.jsx` files
+- 📄 Generates a `DOCS.md` with a summary of each file
+- 💾 Optional `--backup` flag to save originals before overwriting
+- 👁 `--dry-run` mode to preview without changing anything
+- 🔀 Swap AI models on the fly with `--model`
+- 🔍 Auto-detects file language (TypeScript, JavaScript, React)
+- ✅ Friendly error if Ollama isn't running
+
+---
+
+## 🧱 Tech Stack
+
+| Tool | Purpose |
+|---|---|
+| [Python](https://python.org) | Core language |
+| [Ollama](https://ollama.com) | Local LLM runner |
+| [deepseek-coder](https://ollama.com/library/deepseek-coder) | Default AI model |
+| [Typer](https://typer.tiangolo.com) | CLI framework |
+| [Rich](https://rich.readthedocs.io) | Terminal formatting |
+
+---
+
+## ⚙️ Requirements
+
+- Python 3.10+
+- [Ollama](https://ollama.com) installed and running
+- [pipx](https://pipx.pypa.io)
+
+---
+
+## 🚀 Installation
+
+**1. Install and start Ollama**
+
+Download from [ollama.com](https://ollama.com), then pull the model:
+
+```bash
+ollama pull deepseek-coder:6.7b
+
+**2. Install the CLI tool**
+
+```bash
+cd ai-code-commenter
+python3 -m venv venv
+source venv/bin/activate
+pip install -e .
+
+## 🚀 Usage
+
+# Comment all files in a folder + generate DOCS.md
+```bash
+comment-code ./src
+
+# Single file
+```bash
+comment-code ./src/App.tsx
+
+# Backup originals before overwriting
+```bash
+comment-code ./src --backup
+
+# Custom docs output file
+```bash
+comment-code ./src --output MY_DOCS.md
+
+# Use a different Ollama model
+```bash
+comment-code ./src --model codellama:7b
+
+# Preview without writing anything
+```bash
+comment-code ./src --dry-run
+
+## 🚀 All options
+
+Flag	    Short   Default                 Description
+--output	-o	                            DOCS.md	Output documentation filename
+--backup	-b	    false	                Save original files before overwriting
+--dry-run		    false	                Run without writing any files
+--model	    -m	    deepseek-coder:6.7b	    Ollama model to use
+
+## 🚀 Example Output
+
+**Before (Button.tsx)**
+
+```bash
+export const Button = ({ label, onClick, disabled }) => {
+  return (
+    <button onClick={onClick} disabled={disabled}>
+      {label}
+    </button>
+  );
+};
+
+**After (Button.tsx)**
+
+```bash
+// Button component — renders a clickable button with optional disabled state
+export const Button = ({ label, onClick, disabled }) => {
+  return (
+    // Attach the onClick handler and pass the disabled prop to the native button
+    <button onClick={onClick} disabled={disabled}>
+      {/* Render the button label passed as a prop */}
+      {label}
+    </button>
+  );
+};
+
+**Generated ```DOCS.md entry:**
+## `Button.tsx`
+
+A simple reusable Button component that accepts a label string, an onClick
+handler, and an optional disabled boolean. Renders a native HTML button
+element styled and controlled via props.
+
+## 🚀 Project Structure
+
+ai-code-commenter/
+├── commenter/
+│   ├── __init__.py
+│   ├── cli.py          # CLI entry point and flags
+│   ├── processor.py    # File reading, AI calls, language detection
+│   └── docs_writer.py  # Markdown documentation generator
+├── pyproject.toml
+└── README.md
+
+## 🚀 Supported Models
+
+Any model available in Ollama works. Recommended for code:
+
+Model	            Size	Command
+deepseek-coder:6.7b	~4GB	ollama pull deepseek-coder:6.7b
+codellama:7b	    ~4GB	ollama pull codellama:7b
+qwen2.5-coder:7b	~4GB	ollama pull qwen2.5-coder:7b
+
+## 🚀 Why I Built This
+
+When working on AI-assisted projects, generated code can be hard to understand at a glance.
+This tool solves that by automatically annotating code with human-readable comments and
+producing a documentation file — making codebases easier to onboard into and maintain.
+
+Built as a portfolio project to demonstrate:
+
+Python CLI development
+Local LLM integration
+Developer tooling and UX thinking
+
+## 🚀 License
+
+MIT

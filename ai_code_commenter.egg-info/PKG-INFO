@@ -1,0 +1,8 @@
+Metadata-Version: 2.4
+Name: ai-code-commenter
+Version: 0.1.0
+Summary: CLI tool that adds AI-generated comments to code and writes documentation
+Requires-Python: >=3.10
+Requires-Dist: typer
+Requires-Dist: ollama
+Requires-Dist: rich

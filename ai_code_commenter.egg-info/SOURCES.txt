@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+ai_code_commenter.egg-info/PKG-INFO
+ai_code_commenter.egg-info/SOURCES.txt
+ai_code_commenter.egg-info/dependency_links.txt
+ai_code_commenter.egg-info/entry_points.txt
+ai_code_commenter.egg-info/requires.txt
+ai_code_commenter.egg-info/top_level.txt
+commenter/__init__.py
+commenter/cli.py
+commenter/docs_writer.py
+commenter/processor.py
